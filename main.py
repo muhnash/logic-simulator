@@ -57,18 +57,24 @@ class Gate():
 
     def get_output_value(self):
         return  self.output.get_value()
+
+
 class AND(Gate):
     def calc_output(self):
         digital_op=1
         for wire in self.inputs:
             digital_op = digital_op and wire.get_value()
         self.output.set_value(digital_op)
+
+
 class OR(Gate):
      def calc_output(self):
         digital_op=0
         for wire in self.inputs:
             digital_op = digital_op or wire.get_value()
         self.output.set_value(digital_op)
+
+
 class NOT(Gate):
     def set_inputs(self,wire_input:Wire):
         self.inputs.append(wire_input)
@@ -95,12 +101,16 @@ def file_to_list(file_name):
             lines_list.append(line.strip())  # line.strip() : strips any spaces before/after the string
     f.close()
     return lines_list
+
+
 def split_list(lines_list:list):
     'takes lines_list and s'
     split_index=lines_list.index('---')
     values_list=lines_list[0:split_index]
     gates_list=lines_list[split_index+1 : len(lines_list)]
     return values_list,gates_list
+
+
 def gates_listing(gate_list :list):
     'takes a list of strings of for spaced fields , turns every string to a list of 4 elements ,then returns a list of lists'
     final_list=[]
@@ -118,6 +128,8 @@ def gates_listing(gate_list :list):
                 argument_list.append(element)
         final_list.append(argument_list)
     return final_list
+
+
 def list_to_dic(input_list):
     temp=[]
     dic={}
@@ -133,7 +145,7 @@ def list_to_dic(input_list):
 
 
 def main():
-####### PARSING THE FUCKING INPUT FILE ################
+####### PARSING THE INPUT FILE ################
     full_list=file_to_list('input_file.txt')    # full List : list of all lines in the file , No blank lines ..
 
     values_lines=split_list(full_list)[0]        # values lines: list of values lines in the file
@@ -179,11 +191,12 @@ def main():
             objects_list.append(gate_object)
 
         elif line[1].upper()=='OR':
-            pass
+            pass                            # to Update
         elif line[1].upper()=='NOT':
-            pass
+            pass                            # to Update
 
 
     print('Answer => ' + str(objects_list[-1].get_output_value()))
     print(wires_dictionary)
+    
 if __name__ == '__main__':main()
